@@ -1,0 +1,5 @@
+syntax: regexp
+.vs
+^WeatherDomeControl/Debug
+^WeatherDomeControl/Release
+WeatherDomeControl.componentinfo.xml
