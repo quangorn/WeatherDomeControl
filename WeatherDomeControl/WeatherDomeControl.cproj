@@ -133,6 +133,12 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="mlx90614\mlx90614.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mlx90614\mlx90614.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="usart\usart.c">
       <SubType>compile</SubType>
     </Compile>
@@ -143,6 +149,7 @@
   <ItemGroup>
     <Folder Include="i2c" />
     <Folder Include="bme280" />
+    <Folder Include="mlx90614" />
     <Folder Include="usart" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
