@@ -44,14 +44,12 @@ int main (void) {
 
 		if (!mlxGetCurrentData(&mlxData)) {
 			usartTransmitString("MLX get data failed\r\n");
-			continue;
 		}
 
 		bmeStatus = bmeGetCurrentData(&sensorData);
 		if (bmeStatus != BME280_OK) {
 			sprintf(buf, "BME get data failed: %d\r\n", bmeStatus);
 			usartTransmitString(buf);
-			continue;
 		}
 
 		sprintf(buf, "MLX T: %ld; IR: %ld; BME T: %ld; P: %ld; H: %ld;\r\n", mlxData.temperature, mlxData.irTemperature, 

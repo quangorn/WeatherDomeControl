@@ -18,8 +18,8 @@
 int8_t sendImpl(int8_t additionalTWCR_Flags);
 
 void i2cInit() {
-	//setting transfer speed 50 kHz
-	TWBR = 0x98;
+	//setting transfer speed 100 kHz
+	TWBR = 0x48;
 }
 
 int8_t i2cStart() {
@@ -29,8 +29,6 @@ int8_t i2cStart() {
 
 void i2cStop() {
 	TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWSTO);
-	//TODO: убрать это хак, наверняка есть способ узнать об успешной отправке STOP
-	_delay_ms(1);
 }
 
 int8_t i2cWriteSlaveAddr(uint8_t addr, int8_t isRead) {
