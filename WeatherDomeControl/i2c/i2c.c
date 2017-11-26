@@ -1,5 +1,9 @@
+#include "../definitions.h"
 #include "i2c.h"
 #include <avr/io.h>
+#include <util/delay.h>
+
+//TODO: remove include
 #include "../usart/usart.h"
 
 //=========== Definitions ============
@@ -14,8 +18,8 @@
 int8_t sendImpl(int8_t additionalTWCR_Flags);
 
 void i2cInit() {
-	//setting transfer speed
-	TWBR = 0x20;
+	//setting transfer speed 100 kHz
+	TWBR = 0x48;
 }
 
 int8_t i2cStart() {
