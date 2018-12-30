@@ -28,16 +28,18 @@
     <eraseonlaunchrule>0</eraseonlaunchrule>
     <AsfFrameworkConfig>
       <framework-data xmlns="">
-  <options />
-  <configurations />
-  <files />
-  <documentation help="" />
-  <offline-documentation help="" />
-  <dependencies>
-    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.34.1" />
-  </dependencies>
-</framework-data>
+        <options />
+        <configurations />
+        <files />
+        <documentation help="" />
+        <offline-documentation help="" />
+        <dependencies>
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.34.1" />
+        </dependencies>
+      </framework-data>
     </AsfFrameworkConfig>
+    <ResetRule>0</ResetRule>
+    <EraseKey />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -151,6 +153,12 @@
     <Compile Include="mlx90614\mlx90614.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="motor\motor.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="motor\motor.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="usart\usart.c">
       <SubType>compile</SubType>
     </Compile>
@@ -162,6 +170,7 @@
     <Folder Include="i2c" />
     <Folder Include="bme280" />
     <Folder Include="mlx90614" />
+    <Folder Include="motor" />
     <Folder Include="usart" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
