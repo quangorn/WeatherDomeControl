@@ -9,7 +9,7 @@ void motorInit();
 void motorStart(bool direction);
 void motorStop();
 void motorProceed();
-bool motorIsRunning();
+bool motorIsStarted();
 //stop if started and start if stopped
 void motorToggle(bool direction);
 

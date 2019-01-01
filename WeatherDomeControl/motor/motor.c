@@ -11,9 +11,9 @@ void motorInit() {
 	DDRD |= 1 << DDD5;
 
 	//set none-inverting mode and fast PWM Mode
-	TCCR0A |= (1 << COM0A1) | (1 << COM0B1) | (1 << WGM01) | (1 << WGM00);
+	TCCR0A |= (1 << WGM01) | (1 << WGM00);
 
-	//set prescaler to 1024 and starts PWM
+	//set prescaler to 1024
 	TCCR0B |= (1 << CS00) | (1 << CS02);
 
 	OCR0B = 0;
@@ -27,12 +27,16 @@ void motorStop() {
 	motorTargetSpeed = 0;
 }
 
-bool motorIsRunning() {
+bool motorIsStarted() {
 	return motorTargetSpeed != 0;
 }
 
 void motorProceed() {
 	if (OCR0B < motorTargetSpeed) {
+		if (OCR0B == 0) {
+			//enable PWM Mode
+			TCCR0A |= 1 << COM0B1;
+		}
 		if (motorTargetSpeed - OCR0B < MOTOR_SPEED_STEP) {
 			OCR0B = motorTargetSpeed;
 		} else {
@@ -44,11 +48,15 @@ void motorProceed() {
 		} else {
 			OCR0B -= MOTOR_SPEED_STEP;
 		}
+		if (OCR0B == 0) {
+			//disable PWM Mode
+			TCCR0A &= ~(1 << COM0B1);
+		}
 	}
 }
 
 void motorToggle(bool direction) {
-	if (motorIsRunning()) {
+	if (motorIsStarted()) {
 		motorStop();
 	} else {
 		motorStart(direction);
