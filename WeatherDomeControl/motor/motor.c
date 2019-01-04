@@ -1,9 +1,10 @@
 #include "motor.h"
 #include <avr/io.h>
 
-#define MOTOR_SPEED_STEP_UP 3
-#define MOTOR_SPEED_STEP_DOWN 6
-#define MOTOR_START_SPEED 0
+#define MOTOR_SPEED_STEP_UP 2
+#define MOTOR_SPEED_STEP_DOWN 5
+#define MOTOR_START_SPEED 15
+#define MOTOR_MAX_SPEED 128
 
 uint8_t motorTargetSpeed = MOTOR_START_SPEED;
 bool motorDirection = false;
@@ -35,7 +36,7 @@ void motorInit() {
 }
 
 void motorStart(bool direction) {
-	motorTargetSpeed = 0xFF;
+	motorTargetSpeed = MOTOR_MAX_SPEED;
 	motorDirection = direction;
 	if (OCR0B <= MOTOR_START_SPEED) {
 		motorSetDirection();
