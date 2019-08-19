@@ -18,8 +18,9 @@ void ledToggle() {
 	PORTC ^= 1 << PORTC2;
 }
 
-char buf[256];
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wmissing-noreturn"
+#pragma ide diagnostic ignored "OCDFAInspection"
 int main (void) {
 	//C2 is output
 	PORTC |= 1 << DDC2;

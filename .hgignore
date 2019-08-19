@@ -3,3 +3,6 @@ syntax: regexp
 ^WeatherDomeControl/Debug
 ^WeatherDomeControl/Release
 WeatherDomeControl.componentinfo.xml
+^WeatherDomeControl/.idea
+^WeatherDomeControl/cmake-build-release
+^WeatherDomeControl/cmake-build-debug
