@@ -2,8 +2,8 @@
 #include <avr/io.h>
 
 #define MOTOR_SPEED_STEP_UP 2
-#define MOTOR_SPEED_STEP_DOWN 5
-#define MOTOR_START_SPEED 15
+#define MOTOR_SPEED_STEP_DOWN 3
+#define MOTOR_START_SPEED 5
 #define MOTOR_MAX_SPEED 128
 
 uint8_t motorTargetSpeed = MOTOR_START_SPEED;
@@ -32,16 +32,16 @@ void motorInit() {
 	//set none-inverting mode and fast PWM Mode
 	TCCR1A |= (1 << WGM10) | (1 << WGM12);
 
-	//set prescaler to 1024
-	TCCR1B |= (1 << CS00) | (1 << CS02);
+	//set prescaler to 256
+	TCCR1B |= (1 << CS12);
 
-	OCR1B = MOTOR_START_SPEED;
+	OCR1A = MOTOR_START_SPEED;
 }
 
 void motorStart(bool direction) {
 	motorTargetSpeed = MOTOR_MAX_SPEED;
 	motorDirection = direction;
-	if (OCR1B <= MOTOR_START_SPEED) {
+	if (OCR1A <= MOTOR_START_SPEED) {
 		motorSetDirection();
 	}
 }
@@ -59,26 +59,26 @@ void motorProceed() {
 	if (!motorIsDirectionRight()) {
 		targetSpeed = MOTOR_START_SPEED;
 	}
-	if (OCR1B < targetSpeed) {
-		if (OCR1B <= MOTOR_START_SPEED) {
+	if (OCR1A < targetSpeed) {
+		if (OCR1A <= MOTOR_START_SPEED) {
 			//enable PWM Mode
-			TCCR1A |= 1 << COM1B1;
+			TCCR1A |= 1 << COM1A1;
 		}
-		if (targetSpeed - OCR1B < MOTOR_SPEED_STEP_UP) {
-			OCR1B = targetSpeed;
+		if (targetSpeed - OCR1A < MOTOR_SPEED_STEP_UP) {
+			OCR1A = targetSpeed;
 		} else {
-			OCR1B += MOTOR_SPEED_STEP_UP;
+			OCR1A += MOTOR_SPEED_STEP_UP;
 		}
-	} else if (OCR1B > targetSpeed) {
-		if (OCR1B - targetSpeed < MOTOR_SPEED_STEP_DOWN) {
-			OCR1B = targetSpeed;
+	} else if (OCR1A > targetSpeed) {
+		if (OCR1A - targetSpeed < MOTOR_SPEED_STEP_DOWN) {
+			OCR1A = targetSpeed;
 		} else {
-			OCR1B -= MOTOR_SPEED_STEP_DOWN;
+			OCR1A -= MOTOR_SPEED_STEP_DOWN;
 		}
-		if (OCR1B <= MOTOR_START_SPEED) {
+		if (OCR1A <= MOTOR_START_SPEED) {
 			if (motorIsDirectionRight()) {
 				//disable PWM Mode
-				TCCR1A &= ~(1 << COM1B1);
+				TCCR1A &= ~(1 << COM1A1);
 				//disable direction relay if motor is stopped
 				motorDirection = false;
 				motorSetDirection();

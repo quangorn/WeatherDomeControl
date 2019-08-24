@@ -32,11 +32,13 @@ int main (void) {
 
 	sei();
 
+	ledOn();
+	_delay_ms(100);
+	ledOff();
+
 	uint8_t lastButtonsState = 0;
 	while (1) {
-		ledOn();
 		_delay_ms(40);
-		ledOff();
 
 		uint8_t buttonsState = PIND & ((1 << PIND2) | (1 << PIND3));
 		if (buttonsState != lastButtonsState) {
